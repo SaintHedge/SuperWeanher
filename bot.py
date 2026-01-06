@@ -17,14 +17,11 @@ async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "?q=Kremenchuk&units=metric&lang=uk"
         f"&appid={WEATHER_API_KEY}"
     )
-    r = requests.get(url)
-    data = r.json()
-
-    temp = data["main"]["temp"]
-    desc = data["weather"][0]["description"]
+    data = requests.get(url).json()
 
     await update.message.reply_text(
-        f"🌡 Температура: {temp}°C\n☁️ Опис: {desc}"
+        f"🌡 Температура: {data['main']['temp']}°C\n"
+        f"☁️ Опис: {data['weather'][0]['description']}"
     )
 
 def main():
